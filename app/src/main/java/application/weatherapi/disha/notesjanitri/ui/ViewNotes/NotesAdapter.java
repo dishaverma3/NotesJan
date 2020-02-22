@@ -1,6 +1,8 @@
 package application.weatherapi.disha.notesjanitri.ui.ViewNotes;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import application.weatherapi.disha.notesjanitri.R;
 import application.weatherapi.disha.notesjanitri.data.local.Notes;
 import application.weatherapi.disha.notesjanitri.model.NotesListitem;
+import application.weatherapi.disha.notesjanitri.ui.EditNote.EditNotes;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
@@ -69,7 +72,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             title.setText(item.getTitle());
 
             layout.setOnClickListener(view -> {
-
+                Intent i = new Intent(context.getApplicationContext(), EditNotes.class);
+                Bundle b = new Bundle();
+                b.putInt("id",item.getId());
+                i.putExtras(b);
+                i.addFlags(i.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
             });
         }
     }

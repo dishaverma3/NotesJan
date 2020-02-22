@@ -17,6 +17,9 @@ public interface dao {
     @Query("SELECT * FROM notes_table")
     List<Notes> getAllNotes();
 
+    @Query("SELECT * FROM notes_table WHERE notes_id =:id")
+    Notes getNoteById(int id);
+
     @Update
     void updateNotes(Notes notesEntity);
 
