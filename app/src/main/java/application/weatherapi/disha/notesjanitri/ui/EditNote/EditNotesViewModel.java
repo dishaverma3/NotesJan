@@ -30,4 +30,8 @@ public class EditNotesViewModel extends AndroidViewModel{
 
 
     }
+
+    public void updateNotes(Notes notes) {
+        new AppExecutors().diskIO().execute(() -> database.notesDao().updateNotes(notes));
+    }
 }

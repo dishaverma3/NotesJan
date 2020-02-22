@@ -42,7 +42,7 @@ public class ViewNotesViewModel extends AndroidViewModel {
                 {
                     for (int i = 0; i < response.body().size(); i++)
                     {
-                        Notes notes = new Notes(response.body().get(i).getUserId(),response.body().get(i).getId(),response.body().get(i).getTitle(),response.body().get(i).isCompleted(),"Body");
+                        Notes notes = new Notes(response.body().get(i).getUserId(),response.body().get(i).getId(),response.body().get(i).getTitle(),response.body().get(i).isCompleted(),response.body().get(i).getTitle()+" Body");
                         new AppExecutors().diskIO().execute(() -> database.notesDao().insertNote(notes));
 
                         list.add(notes);
@@ -56,6 +56,22 @@ public class ViewNotesViewModel extends AndroidViewModel {
             public void onFailure(Call<List<Notes>> call, Throwable t) {
                 Log.d("Notes", "onFailure: FAILED---- ");
 
+            }
+        });
+    }
+
+    public void getAllNotesStorage() {
+        new AppExecutors().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                list = database.notesDao().getAllNotes();
+
+                new AppExecutors().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        isListSet.setValue(true);
+                    }
+                });
             }
         });
     }

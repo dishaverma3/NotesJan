@@ -5,7 +5,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import application.weatherapi.disha.notesjanitri.R;
 import application.weatherapi.disha.notesjanitri.data.local.Notes;
+import application.weatherapi.disha.notesjanitri.ui.ViewNotes.ViewNotes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,7 +38,13 @@ public class EditNotes extends AppCompatActivity {
         });
 
         fab.setOnClickListener(view -> {
+            viewModel.notes.setNotesBody(body.getText().toString());
+            viewModel.notes.setCompleted(false);
+            viewModel.updateNotes(viewModel.notes);
 
+            startActivity(new Intent(this, ViewNotes.class));
+
+            finish();
         });
     }
 

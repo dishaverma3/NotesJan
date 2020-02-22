@@ -9,6 +9,7 @@ import application.weatherapi.disha.notesjanitri.R;
 import application.weatherapi.disha.notesjanitri.data.local.Notes;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Collections;
@@ -18,6 +19,7 @@ public class ViewNotes extends AppCompatActivity {
 
     ViewNotesViewModel viewModel;
     RecyclerView recyclerView;
+    String TAG = "kddknv";
     NotesAdapter adapter;
 
     @Override
@@ -27,7 +29,7 @@ public class ViewNotes extends AppCompatActivity {
 
         init();
 
-        viewModel.getAllNotes();
+        Log.d(TAG, "onCreate: ON CREATE");
 
         viewModel.isListSet.observe(this, new Observer<Boolean>() {
             @Override
@@ -36,7 +38,14 @@ public class ViewNotes extends AppCompatActivity {
                     setRecyclerView(viewModel.list);
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onCreate: ON START");
+
+        viewModel.getAllNotes();
     }
 
     private void setRecyclerView(List<Notes> list) {
